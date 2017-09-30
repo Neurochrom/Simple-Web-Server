@@ -24,6 +24,13 @@ int main() {
   // HTTPS-server at port 8080 using 1 thread
   // Unless you do more heavy non-threaded processing in the resources,
   // 1 thread is usually faster than several threads
+  //
+  // You can use:
+  //  openssl genrsa -out server.key
+  //  oopenssl req -new -key server.key -out server.csr
+  //  oopenssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+  // to generate server.crt and server.key files.
+  // For the above openssl should be in your path and execute within servers (this programs) working directory.
   HttpsServer server("server.crt", "server.key");
   server.config.port = 8080;
 
