@@ -247,7 +247,7 @@ int main() {
 
       header.emplace("Content-Length", to_string(ss.str().size()));
       response->write(header);
-      response->write(ss.str().c_str(), ss.str().size());
+      response->write(ss.str().c_str(), (std::streamsize)ss.str().size());
       response->send();
     }
     catch (const exception &e) {
