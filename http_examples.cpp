@@ -207,6 +207,7 @@ int main() {
         throw invalid_argument("could not read file");
     }
     catch(const exception &e) {
+      std::cout << "Error within GET: " << e.what() << std::endl;
       response->write(SimpleWeb::StatusCode::client_error_bad_request, "Could not open path " + request->path + ": " + e.what());
     }
   };
