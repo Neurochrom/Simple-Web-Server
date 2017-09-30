@@ -70,7 +70,7 @@ namespace SimpleWeb {
                   write_stream << "CONNECT " + host_port + " HTTP/1.1\r\n"
                                << "Host: " << host_port << "\r\n\r\n";
                   session->connection->set_timeout(this->config.timeout_connect);
-                  asio::async_write(session->connection->socket->next_layer(), *write_buffer, [this, session, write_buffer](const error_code &ec, size_t /*bytes_transferred*/) {
+                  asio::async_write(session->connection->socket->next_layer(), *write_buffer, [this, session, write_buffer](const error_code &ec, std::size_t /*bytes_transferred*/) {
                     session->connection->cancel_timeout();
                     auto lock = session->connection->handler_runner->continue_lock();
                     if(!lock)
@@ -78,7 +78,7 @@ namespace SimpleWeb {
                     if(!ec) {
                       std::shared_ptr<Response> response(new Response(this->config.max_response_streambuf_size));
                       session->connection->set_timeout(this->config.timeout_connect);
-                      asio::async_read_until(session->connection->socket->next_layer(), response->streambuf, "\r\n\r\n", [this, session, response](const error_code &ec, size_t /*bytes_transferred*/) {
+                      asio::async_read_until(session->connection->socket->next_layer(), response->streambuf, "\r\n\r\n", [this, session, response](const error_code &ec, std::size_t /*bytes_transferred*/) {
                         session->connection->cancel_timeout();
                         auto lock = session->connection->handler_runner->continue_lock();
                         if(!lock)
