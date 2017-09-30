@@ -172,7 +172,9 @@ namespace SimpleWeb {
       }
 
     private:
+    TEST_ONLY(public:)
       asio::streambuf &streambuf;
+    private:
       Content(asio::streambuf &streambuf) noexcept : std::istream(&streambuf), streambuf(streambuf) {}
     };
 
@@ -181,6 +183,7 @@ namespace SimpleWeb {
       friend class Server<socket_type>;
       friend class Session;
 
+    TEST_ONLY(public:)
       asio::streambuf streambuf;
       Request(size_t max_request_streambuf_size, const std::string &remote_endpoint_address = std::string(), unsigned short remote_endpoint_port = 0) noexcept
           : streambuf(max_request_streambuf_size), content(streambuf), remote_endpoint_address(remote_endpoint_address), remote_endpoint_port(remote_endpoint_port) {}
